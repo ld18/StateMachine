@@ -27,6 +27,9 @@ public:
 	/// <remarks> Have a look at movingAvgLength </remarks>
 	int calculateUpdatePeriode();
 
+	string getStateName(){
+		return currentState->name;
+	}
 	~StateMachine() {
 		delete currentState;
 	}
