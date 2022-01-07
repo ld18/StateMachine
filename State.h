@@ -1,12 +1,9 @@
 #pragma once
 
 #include <string>
-#include <iostream>
 #include <chrono>
 
 using std::string;
-using std::cout;
-using std::endl;
 using std::chrono::high_resolution_clock;
 
 /// <value> Action a state can performe, see UML entry, do and exit actions </value>
@@ -26,7 +23,7 @@ public:
 	///Check the conditions and calculate if the machine enters into a state, stay in the current one or leaves the current one. </summary>
 	/// <returns> StateAction: indicates which action will be performed </returns>  
 	/// <remarks> Need to be fully rewritten by you. </remarks>
-	virtual StateAction getNextAction();
+	virtual StateAction getNextAction(State*& newState);
 	
 	/// <summary> Performes the tasks defined when entering a new state. </summary>
 	virtual void doEnterActions();
@@ -35,7 +32,7 @@ public:
 	virtual void doStayActions();
 	
 	/// <summary> Performes the tasks defined when leaving a state. </summary>
-	virtual State* doLeaveActions();
+	virtual void doLeaveActions();
 
 	/// <value> String to describe the state. </value>
 	string name = "baseState";

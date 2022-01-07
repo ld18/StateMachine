@@ -13,8 +13,9 @@ void StateMachine::update()
 {
 	movingAvgIndex = (movingAvgIndex + 1) % movingAvgLength;
 	timeStamps[movingAvgIndex] = steady_clock::now();
-	StateAction action = currentState->getNextAction();
-	State* newState;
+
+	State* newState = nullptr;
+	StateAction action = currentState->getNextAction(newState);
 	switch (action)
 	{
 	case enter:
@@ -24,7 +25,7 @@ void StateMachine::update()
 		currentState->doStayActions();
 		break;
 	case leave:
-		newState = currentState->doLeaveActions();
+		currentState->doLeaveActions();
 		delete currentState;
 		currentState = newState;
 		break;

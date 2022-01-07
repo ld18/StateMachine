@@ -30,6 +30,7 @@ public:
 	string getStateName(){
 		return currentState->name;
 	}
+
 	~StateMachine() {
 		delete currentState;
 	}
@@ -39,5 +40,6 @@ private:
 	State* currentState = new State();
 
 	steady_clock::time_point timeStamps[movingAvgLength] = { steady_clock::now() };
+
 	int movingAvgIndex = 0;
 };

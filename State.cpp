@@ -2,7 +2,8 @@
 #include "State.h"
 #include <stdlib.h>
 
-StateAction State::getNextAction() {
+StateAction State::getNextAction(State*& newState) {
+	newState = nullptr;
 	if (entered) {
 		return StateAction::stay;
 	}
@@ -19,7 +20,6 @@ void State::doEnterActions() {
 void State::doStayActions() {
 };
 
-State* State::doLeaveActions() {
+void State::doLeaveActions() {
 	leaftAt = high_resolution_clock::now();
-	return nullptr;
 };
