@@ -19,13 +19,14 @@ main.cpp
     using namespace std;
 
     int main(int argc, char* argv[]) {
-      StateMachine sm = StateMachine(new off_State());
+        StateMachine sm = StateMachine(new off_State());
 
-      for (int i = 0; i < 10; i++) {
-        cout << i << " " << sm.calculateUpdatePeriode() << "ms : ";
-        sm.update();
-      }
-      return 0;
+        for (int i = 0; i < 10; i++) {
+            cout << i << " " << sm.calculateUpdatePeriode() << "ms: \t";
+            sm.update();
+            cout << endl;
+        }
+        return 0;
     }
 
 
@@ -37,66 +38,72 @@ myStates.h
 
     class off_State : public State {
     public:
-      off_State() { name = "off"; };
-      StateAction getNextAction() override;
-      State* doLeaveActions() override;
+        off_State() { name = "off"; };
+        StateAction getNextAction(State*& newState) override;
+        void doLeaveActions() override;
     };
 
     class startup_State : public State {
     public:
-      startup_State() { name = "startup"; };
-      StateAction getNextAction() override;
-      virtual void doEnterActions() override;
-      State* doLeaveActions() override;
+        startup_State() { name = "startup"; };
+        StateAction getNextAction(State*& newState) override;
+        void doEnterActions() override;
+        void doLeaveActions() override;
     };
 
     class measure_State : public State {
     public:
-      measure_State() { name = "measure"; };
-      virtual void doStayActions() override;
+        measure_State() { name = "measure"; };
+        void doStayActions() override;
     };
 
     class emergency_State : public State {
     public:
-      emergency_State() { name = "emergency"; };
+        emergency_State() { name = "emergency"; };
     };
 
 
 myStates.cpp
 
     #include "myStates.h"
+    #include <iostream>
 
-    StateAction off_State::getNextAction()
-    {
-      return StateAction::leave;
-    }
-    State* off_State::doLeaveActions()
-    {
-      delete State::doLeaveActions();
-      return new startup_State();
-    }
+    using std::cout;
 
-    StateAction startup_State::getNextAction()
+    StateAction off_State::getNextAction(State*& newState)
     {
-      if (!entered) {
-        return StateAction::enter;
-      }
-      else {
+        newState = new startup_State();
         return StateAction::leave;
-      }
+    }
+    void off_State::doLeaveActions()
+    {
+        State::doLeaveActions();
+        cout << "off_State::doLeaveActions";
+    }
+
+    StateAction startup_State::getNextAction(State*& newState)
+    {
+        newState = new measure_State();
+        if (!entered) {
+            return StateAction::enter;
+        }
+        else {
+            return StateAction::leave;
+        }
     }
     void startup_State::doEnterActions()
     {
-      State::doEnterActions();
+        State::doEnterActions();
+        cout << "startup_State::doEnterActions";
     }
-    State* startup_State::doLeaveActions()
+    void startup_State::doLeaveActions()
     {
-      delete State::doLeaveActions();
-      return new measure_State();
+        State::doLeaveActions();
+        cout << "startup_State::doLeaveActions";
     }
 
     void measure_State::doStayActions()
     {
-      State::doStayActions();
-      //meassure and print or do stuff
+        State::doStayActions();
+        cout << "measure_State::doStayActions";
     }
