@@ -7,6 +7,7 @@
 StateMachine::StateMachine(State* initialState)
 {
 	currentState = initialState;
+	timeStamps = { steady_clock::now() };
 }
 
 void StateMachine::update()

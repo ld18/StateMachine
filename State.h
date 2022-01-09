@@ -38,6 +38,15 @@ public:
 	/// <value> String to describe the state. </value>
 	string name = "baseState";
 
+	high_resolution_clock::time_point enteredAt getentryTimepoint() const{
+		return enteredAt;
+	} 
+
+protected:
+	/// <value> Internal boolean to differentiate the enter action from a stay action. </value>
+	/// <remarks> Have a look into State::getNextAction(). </remarks>
+	bool entered = false;
+
 	/// <value> Timepoint when the current state was enterd. </value>
 	/// <remarks> Should be set in doEnterActions(). </remarks>
 	high_resolution_clock::time_point enteredAt;
@@ -45,8 +54,4 @@ public:
 	/// <value> Timepoint when the last state was left. </value>
 	/// <remarks> Should be set in doLeaveActions(). </remarks>
 	high_resolution_clock::time_point leaftAt;
-protected:
-	/// <value> Internal boolean to differentiate the enter action from a stay action. </value>
-	/// <remarks> Have a look into State::getNextAction(). </remarks>
-	bool entered = false;
 };

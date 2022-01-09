@@ -25,9 +25,9 @@ public:
 	/// Is smoothed by an moving averange. </summary>
 	/// <returns> Periode in ms </returns>
 	/// <remarks> Have a look at movingAvgLength </remarks>
-	int calculateUpdatePeriode();
+	int calculateUpdatePeriode() const;
 
-	string getStateName(){
+	string getStateName() const{
 		return currentState->name;
 	}
 
@@ -39,7 +39,7 @@ private:
 	/// <remarks> Needs to  be set tothe begin </remarks>
 	State* currentState = new State();
 
-	steady_clock::time_point timeStamps[movingAvgLength] = { steady_clock::now() };
+	steady_clock::time_point timeStamps[movingAvgLength];
 
 	int movingAvgIndex = 0;
 };
