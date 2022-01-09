@@ -38,7 +38,7 @@ public:
 	/// <value> String to describe the state. </value>
 	string name = "baseState";
 
-	high_resolution_clock::time_point enteredAt getentryTimepoint() const{
+	high_resolution_clock::time_point getEntryTimepoint() const{
 		return enteredAt;
 	} 
 

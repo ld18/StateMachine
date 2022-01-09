@@ -39,7 +39,7 @@ private:
 	/// <remarks> Needs to  be set tothe begin </remarks>
 	State* currentState = new State();
 
-	steady_clock::time_point timeStamps[movingAvgLength];
+	steady_clock::time_point timeStamps[movingAvgLength] = { steady_clock::now() };
 
 	int movingAvgIndex = 0;
 };
