@@ -1,10 +1,14 @@
 # StateMachine
-UML state machine implementation in C ++. Which allows you to easily define UML states with do-, while- and exit-actions and a plug and play state machine.
+UML state machine implementation in C ++. Which allows you to easily define UML states with entry-, while- and exit-actions and a plug and play state machine.
 
 The code is split into two part, the State.h/cpp and the StateMachine.h/cpp. 
 The State part contains an "abstract" state with implementations for functionalities when entering, reaming and leaving a state. Also, the state transition is here implemented. It is designed that a new custom state should derive of this base state class and override the needed functions. 
 
 The StateMachine parts handles the states, their transitions and their functions. It does not need any changes, when a new state is introduced. 
+
+
+![grafik](https://user-images.githubusercontent.com/42042383/149151900-dca5c527-579f-4120-84f4-de43a2251e0e.png)
+
 
 
 Example usage:
