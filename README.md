@@ -7,9 +7,6 @@ The State part contains an "abstract" state with implementations for functionali
 The StateMachine parts handles the states, their transitions and their functions. It does not need any changes, when a new state is introduced. 
 
 
-![grafik](https://user-images.githubusercontent.com/42042383/149151900-dca5c527-579f-4120-84f4-de43a2251e0e.png)
-
-
 
 Example usage:
 
@@ -59,11 +56,6 @@ myStates.h
     public:
         measure_State() { name = "measure"; };
         void doStayActions() override;
-    };
-
-    class emergency_State : public State {
-    public:
-        emergency_State() { name = "emergency"; };
     };
 
 
