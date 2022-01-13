@@ -79,11 +79,12 @@ myStates.cpp
 
     StateAction startup_State::getNextAction(State*& newState)
     {
-        newState = new measure_State();
+	    newState = nullptr;
         if (!entered) {
             return StateAction::enter;
         }
         else {
+            newState = new measure_State();
             return StateAction::leave;
         }
     }
