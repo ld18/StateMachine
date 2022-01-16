@@ -17,7 +17,9 @@ enum StateAction {
 /// This class is a representation of a UML state, of which you can derive you costum state and use it with the StateMachine. </summary>
 class State {
 public:
-	State() = default;
+	State() = default;	
+	
+	virtual ~State() = default;
 	
 	/// <summary> Get the next action from a state and the next state. 
 	/// Check the conditions and calculate if the machine enters into a state, stay in the current one or leaves the current one. </summary>

@@ -12,15 +12,16 @@ Example usage:
 
 main.cpp
 
-
     #include <iostream>
     #include "StateMachine.h"
     #include "myStates.h"
-
     using namespace std;
 
     int main(int argc, char* argv[]) {
-        StateMachine sm = StateMachine(new off_State());
+        
+        StateMachine sm = StateMachine();
+        sm.initialState = new off_State();
+        sm.init();
 
         for (int i = 0; i < 10; i++) {
             cout << i << " " << sm.calculateUpdatePeriode() << "ms: \t";
@@ -34,7 +35,6 @@ main.cpp
 myStates.h
 
     #pragma once
-
     #include "State.h"
 
     class off_State : public State {

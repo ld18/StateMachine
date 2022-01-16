@@ -15,7 +15,11 @@ using std::chrono::steady_clock;
 /// <remarks> No need to change anything here, all the work is done in the State.h/cpp  </remarks>
 class StateMachine {
 public:
-	StateMachine(State* initialState);
+	StateMachine() = default;
+
+	/// <summary> Inits the state machine. 
+	/// Must be called after setting the initialState and befor the first update </summary>
+	void init();
 
 	/// <summary> Update the state machine. 
 	/// Calculates the next state transition/action and performed the state functions. </summary>
@@ -34,10 +38,14 @@ public:
 	~StateMachine() {
 		delete currentState;
 	}
+
+	/// <value> Holds the initial state of the state machine. </value>
+	/// <remarks> Needs to  be set to the start state </remarks>
+	State* initialState;
 private:
 	/// <value> Holds the current state of the state machine. </value>
-	/// <remarks> Needs to  be set tothe begin </remarks>
-	State* currentState = new State();
+	State* currentState;
+
 
 	steady_clock::time_point timeStamps[movingAvgLength] = { steady_clock::now() };
 

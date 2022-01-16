@@ -4,11 +4,10 @@
 #include <ctime>
 #include <type_traits>
 
-StateMachine::StateMachine(State* initialState)
-{
-	currentState = initialState;
+void StateMachine::init(){	
 	movingAvgIndex = (movingAvgIndex + 1) % movingAvgLength;
 	timeStamps[movingAvgIndex] = steady_clock::now();
+	currentState = initialState;
 }
 
 void StateMachine::update()
