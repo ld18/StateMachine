@@ -13,13 +13,16 @@ StateAction State::getNextAction(State*& newState) {
 };
 
 void State::doEnterActions() {
-	enteredAt = high_resolution_clock::now();
+	enteredAt = steady_clock::now();
+	lastUpdate = steady_clock::now();
 	entered = true;
 };
 
 void State::doStayActions() {
+	lastUpdate = steady_clock::now();
 };
 
 void State::doLeaveActions() {
-	leaftAt = high_resolution_clock::now();
+	leaftAt = steady_clock::now();
+	lastUpdate = steady_clock::now();
 };

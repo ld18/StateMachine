@@ -4,9 +4,8 @@
 #include <chrono>
 
 /// <value> Length of the moving averange used to calculate the update periode. </value>
-#define movingAvgLength 2
+#define movingAvgLength 4
 
-using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 using std::chrono::steady_clock;
 
@@ -42,10 +41,10 @@ public:
 	/// <value> Holds the initial state of the state machine. </value>
 	/// <remarks> Needs to  be set to the start state </remarks>
 	State* initialState;
+	
 private:
 	/// <value> Holds the current state of the state machine. </value>
 	State* currentState;
-
 
 	steady_clock::time_point timeStamps[movingAvgLength] = { steady_clock::now() };
 

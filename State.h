@@ -4,7 +4,7 @@
 #include <chrono>
 
 using std::string;
-using std::chrono::high_resolution_clock;
+using std::chrono::steady_clock;
 
 /// <value> Action a state can performe, see UML entry, do and exit actions. </value>
 enum StateAction {
@@ -40,9 +40,12 @@ public:
 	/// <value> String to describe the state. </value>
 	string name = "baseState";
 
-	high_resolution_clock::time_point getEntryTimepoint() const{
+	steady_clock::time_point getEntryTimepoint() const{
 		return enteredAt;
 	} 
+
+	/// <value> Maximum time between two action calls in ms. </value>
+	//uint18_t maxUpdateInterval = 0;
 
 protected:
 	/// <value> Internal boolean to differentiate the enter action from a stay action. </value>
@@ -51,9 +54,13 @@ protected:
 
 	/// <value> Timepoint when the current state was enterd. </value>
 	/// <remarks> Should be set in doEnterActions(). </remarks>
-	high_resolution_clock::time_point enteredAt;
+	steady_clock::time_point enteredAt;
 	
 	/// <value> Timepoint when the last state was left. </value>
 	/// <remarks> Should be set in doLeaveActions(). </remarks>
-	high_resolution_clock::time_point leaftAt;
+	steady_clock::time_point leaftAt;
+	
+	/// <value> Timepoint when the last action was called. </value>
+	/// <remarks> Should be set in do******Actions(). </remarks>
+	steady_clock::time_point lastUpdate;
 };

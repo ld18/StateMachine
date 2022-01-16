@@ -41,5 +41,5 @@ int StateMachine::calculateUpdatePeriode() const
 	for (int i = 0; i < movingAvgLength - 1; i++) {
 		sumT += timeStamps[(movingAvgIndex - i + movingAvgLength) % movingAvgLength] - timeStamps[(movingAvgIndex - i - 1 + movingAvgLength) % movingAvgLength];
 	}
-	return sumT.count() * 1000 / (movingAvgLength - 1);
+	return (sumT.count() * 1000) / (movingAvgLength - 1);
 }
