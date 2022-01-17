@@ -1,12 +1,9 @@
 
 #include "StateMachine.h"
-#include <stdlib.h>
-#include <ctime>
-#include <type_traits>
 
 void StateMachine::init(){	
-	movingAvgIndex = (movingAvgIndex + 1) % movingAvgLength;
-	timeStamps[movingAvgIndex] = steady_clock::now();
+	timeStamps[0] = steady_clock::now();
+	movingAvgIndex = 0;
 	currentState = initialState;
 }
 
@@ -37,9 +34,13 @@ void StateMachine::update()
 
 int StateMachine::calculateUpdatePeriode() const
 {
-	duration<float> sumT = duration<float>(0.0);
+	duration<float> timeSum;
 	for (int i = 0; i < movingAvgLength - 1; i++) {
-		sumT += timeStamps[(movingAvgIndex - i + movingAvgLength) % movingAvgLength] - timeStamps[(movingAvgIndex - i - 1 + movingAvgLength) % movingAvgLength];
+		if(timeStamps[(movingAvgIndex + i) % movingAvgLength].time_since_epoch().count() > 0){
+			timeSum += timeStamps[(movingAvgIndex - i + movingAvgLength) % movingAvgLength] - timeStamps[(movingAvgIndex - i - 1 + movingAvgLength) % movingAvgLength];
+		}else{	//Not enougth timestamps (array is not primed/filled)
+			return -1;
+		}
 	}
-	return (sumT.count() * 1000) / (movingAvgLength - 1);
+	return (timeSum.count() * 1000) / (movingAvgLength - 1);
 }
