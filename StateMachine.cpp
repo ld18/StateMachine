@@ -1,10 +1,11 @@
 
 #include "StateMachine.h"
 
-void StateMachine::init(){	
+void StateMachine::init(State* initialState){	
 	timeStamps[0] = steady_clock::now();
 	movingAvgIndex = 0;
-	currentState = initialState;
+	currentState = unique_ptr<State>(move(initialState));
+	initialState = nullptr;
 }
 
 void StateMachine::update()
@@ -24,8 +25,7 @@ void StateMachine::update()
 		break;
 	case leave:
 		currentState->doLeaveActions();
-		delete currentState;
-		currentState = newState;
+		currentState = unique_ptr<State>(move(newState));
 		break;
 	default:
 		break;

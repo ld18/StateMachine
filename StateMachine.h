@@ -2,12 +2,16 @@
 
 #include "State.h"
 #include <chrono>
+#include <memory>
+#include <utility>
 
 /// <value> Length of the moving averange used to calculate the update periode. </value>
 #define movingAvgLength 3
 
 using std::chrono::duration;
 using std::chrono::steady_clock;
+using std::unique_ptr;
+using std::move;
 
 /// <summary> Update the state machine. 
 /// Calculates the next state transition/action and performed the state functions. </summary>
@@ -17,8 +21,10 @@ public:
 	StateMachine() = default;
 
 	/// <summary> Inits the state machine. 
-	/// Must be called after setting the initialState and befor the first update </summary>
-	void init();
+	/// <value> Holds the initial state of the state machine. </value>
+	/// <remarks> Needs to  be set to the start state </remarks>
+	/// Must be called befor the first update </summary>
+	void init(State* initialState);
 
 	/// <summary> Update the state machine. 
 	/// Calculates the next state transition/action and performed the state functions. </summary>
@@ -33,18 +39,10 @@ public:
 	string getStateName() const{
 		return currentState->name;
 	}
-
-	~StateMachine() {
-		delete currentState;
-	}
-
-	/// <value> Holds the initial state of the state machine. </value>
-	/// <remarks> Needs to  be set to the start state </remarks>
-	State* initialState;
 	
 private:
 	/// <value> Holds the current state of the state machine. </value>
-	State* currentState;
+	unique_ptr<State> currentState;
 
 	steady_clock::time_point timeStamps[movingAvgLength];
 
