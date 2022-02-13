@@ -20,8 +20,7 @@ main.cpp
     int main(int argc, char* argv[]) {
         
         StateMachine sm = StateMachine();
-        sm.initialState = new off_State();
-        sm.init();
+	sm.init(new off_State());
 
         for (int i = 0; i < 10; i++) {
             cout << i << " " << sm.calculateUpdatePeriode() << "ms: \t";
